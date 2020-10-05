@@ -1,0 +1,14 @@
+header {
+  height: 400px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: #d89820;
+  background-image: url("https://www.transparenttextures.com/patterns/ecailles.png");
+}
+
+h2 {
+  margin: 0;
+}
