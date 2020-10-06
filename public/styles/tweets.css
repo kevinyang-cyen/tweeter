@@ -2,10 +2,20 @@
   margin: auto;
   margin-top: 30px;
   max-width: 1000px;
+  
 }
+
 .tweet-box {
   border: solid;
   margin: 5px;
+}
+
+.tweet-box:hover .tweet-username{
+  color: grey;
+}
+
+.tweet-box:hover {
+  box-shadow: 5px 10px grey;
 }
 
 .tweet-header, .tweet-body, .tweet-footer {
@@ -25,11 +35,16 @@
   margin-left: 10px;
 }
 
+.tweet-username {
+  color: transparent;
+}
+
 .tweet-body {
   border-bottom: solid;
   padding-bottom: 5px;
   margin: 20px;
   font-size: 20px;
+  font-weight: bold;
 }
 
 .tweet-footer {
