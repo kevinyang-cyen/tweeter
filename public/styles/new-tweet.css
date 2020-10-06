@@ -8,6 +8,10 @@
   font-family: "Bungee", sans-serif;;
 }
 
+.negative-count {
+  color: red;
+}
+
 #tweet-text {
   width: 100%;
   background-color: transparent;
