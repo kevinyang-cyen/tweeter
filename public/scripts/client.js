@@ -4,7 +4,6 @@
  * Reminder: Use (and do all your DOM work in) jQuery's document ready function
  */
 
-
 // loops through tweets
 // calls createTweetElement for each tweet
 // takes return value and appends it to the tweets container
@@ -13,7 +12,7 @@ const renderTweets = function(tweets) {
     const tweetHTML = createTweetElement(tweets[tweet]);
     $('#tweet-container').append(tweetHTML);
   }
-}
+};
 
 const createTweetElement = function(tweet) {
   let $tweet = `
@@ -28,7 +27,7 @@ const createTweetElement = function(tweet) {
       </p>
       <footer class="tweet-footer">
         <div>
-          <span>${Math.round((new Date().getTime()-tweet.created_at)/86400000)} Days Ago</span>
+          <span>${Math.round((new Date().getTime() - tweet.created_at) / 86400000)} Days Ago</span>
         </div>
         <div>
           <button class="btn"><i class="fa fa-flag"></i></button>
@@ -39,17 +38,26 @@ const createTweetElement = function(tweet) {
     </article>
   `;
   return $tweet;
-}
+};
 
 $(document).ready(function() {
-
-  $(".tweet-form").submit(function(event) {
-    event.preventDefault();
-    $.post('/tweets', $(this).serialize());
+  $(".tweet-button").on('click', function(evt) {
+    if ($("#tweet-text").val().length === 0) {
+      evt.preventDefault();
+      alert('Type in a message to tweet!');
+    } else if ($("#tweet-text").val().length > 140) {
+      evt.preventDefault();
+      alert('Tweet is too long!');
+    } else {
+      $(".tweet-form").submit(function(event) {
+        event.preventDefault();
+        $.post('/tweets', $(this).serialize());
+      });
+    }
   });
 
-  $.ajax('/tweets', { method: 'GET' })
-  .then(function(data) {
-    renderTweets(data);
-  });
+  $.ajax('/tweets', {method: 'GET'})
+    .then(function(data) {
+      renderTweets(data);
+    });
 });
