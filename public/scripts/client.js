@@ -8,7 +8,7 @@ const createTweetElement = function(tweet) {
   let $tweet = `
     <article class="tweet-box">
       <header class="tweet-header">
-        <img class="tweet-header-pic" src="/images/user-profile.png">
+        <img class="tweet-header-pic" src=${tweet.user.avatars}>
         <span class="tweet-header-name">${tweet.user.name}</span>
         <span class="tweet-username">${tweet.user.handle}</span>
       </header>
@@ -56,7 +56,7 @@ const createErrorElem = function(errorMsg) {
     <span class="error-text">${errorMsg}</span>
     <img class ="error-image" src="/images/tweet-error.png">
   </div>  
-  `
+  `;
   $('#error-container').append(errorElem);
 };
 
@@ -79,6 +79,7 @@ $(document).ready(function() {
       $('#error-container').empty();
       $.post('/tweets', $(this).serialize()).then(
         function() {
+          $("#tweet-text").val('');
           $.ajax('/tweets', {method: 'GET'})
             .then(function(data) {
               printLastTweet(data[data.length - 1]);
