@@ -15,6 +15,7 @@
 }
 
 #tweet-text {
+  overflow: hidden;
   width: 100%;
   background-color: transparent;
   border: none;

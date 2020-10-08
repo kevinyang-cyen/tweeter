@@ -1,0 +1,19 @@
+@media only screen and (min-width: 1024px) {
+  body {
+    display: flex;
+  }
+
+  #profile {
+    display: flex;
+    width: 40%;
+    height: 400px;
+    margin: auto;
+    margin-top: 210px;
+  }
+
+  main {
+    width: 50%;
+    margin-top: 160px;
+  }
+
+}
