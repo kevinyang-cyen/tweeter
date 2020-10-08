@@ -10,7 +10,7 @@
 const renderTweets = function(tweets) {
   for (const tweet in tweets) {
     const tweetHTML = createTweetElement(tweets[tweet]);
-    $('#tweet-container').append(tweetHTML);
+    $('#tweet-container').prepend(tweetHTML);
   }
 };
 
@@ -23,7 +23,7 @@ const createTweetElement = function(tweet) {
         <span class="tweet-username">${tweet.user.handle}</span>
       </header>
       <p class="tweet-body">
-        ${tweet.content.text}
+        ${escape(tweet.content.text)}
       </p>
       <footer class="tweet-footer">
         <div>
@@ -40,24 +40,40 @@ const createTweetElement = function(tweet) {
   return $tweet;
 };
 
-$(document).ready(function() {
-  $(".tweet-button").on('click', function(evt) {
-    if ($("#tweet-text").val().length === 0) {
-      evt.preventDefault();
-      alert('Type in a message to tweet!');
-    } else if ($("#tweet-text").val().length > 140) {
-      evt.preventDefault();
-      alert('Tweet is too long!');
-    } else {
-      $(".tweet-form").submit(function(event) {
-        event.preventDefault();
-        $.post('/tweets', $(this).serialize());
-      });
-    }
-  });
+const escape =  function(str) {
+  let div = document.createElement('div');
+  div.appendChild(document.createTextNode(str));
+  return div.innerHTML;
+};
 
+const printTweet = function() {
   $.ajax('/tweets', {method: 'GET'})
     .then(function(data) {
       renderTweets(data);
     });
+};
+
+const printLastTweet = function(tweet) {
+  const tweetHTML = createTweetElement(tweet);
+  $('#tweet-container').prepend(tweetHTML);
+};
+
+$(document).ready(function() {
+  $(".tweet-form").submit(function(event) {
+    event.preventDefault();
+    if ($("#tweet-text").val().length === 0) {
+      alert('Type in a message to tweet!');
+    } else if ($("#tweet-text").val().length > 140) {
+      alert('Tweet is too long!');
+    } else {
+      $.post('/tweets', $(this).serialize()).then(
+        function() {
+          $.ajax('/tweets', {method: 'GET'})
+            .then(function(data) {
+              printLastTweet(data[data.length - 1]);
+            });
+        });
+    }
+  });
+  printTweet();
 });
