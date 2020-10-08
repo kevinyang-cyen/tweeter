@@ -4,16 +4,6 @@
  * Reminder: Use (and do all your DOM work in) jQuery's document ready function
  */
 
-// loops through tweets
-// calls createTweetElement for each tweet
-// takes return value and appends it to the tweets container
-const renderTweets = function(tweets) {
-  for (const tweet in tweets) {
-    const tweetHTML = createTweetElement(tweets[tweet]);
-    $('#tweet-container').prepend(tweetHTML);
-  }
-};
-
 const createTweetElement = function(tweet) {
   let $tweet = `
     <article class="tweet-box">
@@ -40,10 +30,11 @@ const createTweetElement = function(tweet) {
   return $tweet;
 };
 
-const escape =  function(str) {
-  let div = document.createElement('div');
-  div.appendChild(document.createTextNode(str));
-  return div.innerHTML;
+const renderTweets = function(tweets) {
+  for (const tweet in tweets) {
+    const tweetHTML = createTweetElement(tweets[tweet]);
+    $('#tweet-container').prepend(tweetHTML);
+  }
 };
 
 const printTweet = function() {
@@ -58,14 +49,34 @@ const printLastTweet = function(tweet) {
   $('#tweet-container').prepend(tweetHTML);
 };
 
+const createErrorElem = function(errorMsg) {
+  let errorElem = `
+  <div class="error-box">
+    <img class="error-image" src="/images/tweet-error.png">
+    <span class="error-text">${errorMsg}</span>
+    <img class ="error-image" src="/images/tweet-error.png">
+  </div>  
+  `
+  $('#error-container').append(errorElem);
+};
+
+const escape =  function(str) {
+  let div = document.createElement('div');
+  div.appendChild(document.createTextNode(str));
+  return div.innerHTML;
+};
+
 $(document).ready(function() {
   $(".tweet-form").submit(function(event) {
     event.preventDefault();
     if ($("#tweet-text").val().length === 0) {
-      alert('Type in a message to tweet!');
+      $('#error-container').empty();
+      createErrorElem('Type in a message to tweet!');
     } else if ($("#tweet-text").val().length > 140) {
-      alert('Tweet is too long!');
+      $('#error-container').empty();
+      createErrorElem('Tweet is too long!');
     } else {
+      $('#error-container').empty();
       $.post('/tweets', $(this).serialize()).then(
         function() {
           $.ajax('/tweets', {method: 'GET'})

@@ -1,0 +1,28 @@
+#error-container{
+  width: 100%;
+  margin-top: 15px;
+  display: flex;
+  justify-content: center;
+}
+
+.error-box {
+  max-width: 1000px;
+  width: 100%;
+  border: solid;
+  border-color: red;
+  display: flex;
+  align-items: center;
+  height: 50px;
+}
+
+.error-image {
+  padding-left: 10px;
+  width: 45px;
+}
+
+.error-text{
+  padding-left: 10px;
+  font-family: "Source Sans Pro", sans-serif;
+  font-size: 25px;
+  color: red;
+}
