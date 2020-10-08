@@ -2,6 +2,10 @@
 
 Tweeter is a simple, single-page Twitter clone, built to practice HTML, CSS, JS, jQuery and AJAX front-end skills, as well as Node, Express and MongoDB back-end skills.
 
+## Screenshots
+![Screenshot of tweet compose box and error message](https://github.com/kevinyang-cyen/tweeter/blob/master/docs/Error-Screenshot.PNG?raw=true)
+![Screenshot of new tweet upon valid submission]
+
 ## Download Instructions
 
 1. Fork this repository, then clone your fork of this repository.
