@@ -89,6 +89,7 @@ $(document).ready(function() {
       $.post('/tweets', $(this).serialize()).then(
         function() {
           $("#tweet-text").val('');
+          $(".counter").html('140');
           $.ajax('/tweets', {method: 'GET'})
             .then(function(data) {
               printLastTweet(data[data.length - 1]);
