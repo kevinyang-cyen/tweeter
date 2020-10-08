@@ -1,9 +1,8 @@
 /*
- * Client-side JS logic goes here
- * jQuery is already loaded
- * Reminder: Use (and do all your DOM work in) jQuery's document ready function
+ * Client-side JS
  */
 
+ // Creates the tweet box element with a template to be loaded on to the page
 const createTweetElement = function(tweet) {
   let $tweet = `
     <article class="tweet-box">
@@ -30,6 +29,7 @@ const createTweetElement = function(tweet) {
   return $tweet;
 };
 
+// Renders each tweet in a given tweets database
 const renderTweets = function(tweets) {
   for (const tweet in tweets) {
     const tweetHTML = createTweetElement(tweets[tweet]);
@@ -37,6 +37,7 @@ const renderTweets = function(tweets) {
   }
 };
 
+// Prints the rendered tweets
 const printTweet = function() {
   $.ajax('/tweets', {method: 'GET'})
     .then(function(data) {
@@ -44,11 +45,13 @@ const printTweet = function() {
     });
 };
 
+// Prints an indiviual tweet
 const printLastTweet = function(tweet) {
   const tweetHTML = createTweetElement(tweet);
   $('#tweet-container').prepend(tweetHTML);
 };
 
+// Creates an error message element with a given error message
 const createErrorElem = function(errorMsg) {
   let errorElem = `
   <div class="error-box">
@@ -60,13 +63,19 @@ const createErrorElem = function(errorMsg) {
   $('#error-container').append(errorElem);
 };
 
+// Removes html elements in a given string to prevent script from being passed into the form
 const escape =  function(str) {
   let div = document.createElement('div');
   div.appendChild(document.createTextNode(str));
   return div.innerHTML;
 };
 
+// Functions to run after basic page html is loaded
 $(document).ready(function() {
+  
+  // Checks if form is empty and under character limit
+  // Submits if tweet is valid, then retrieved the database
+  // and prints the submitted tweet
   $(".tweet-form").submit(function(event) {
     event.preventDefault();
     if ($("#tweet-text").val().length === 0) {
@@ -87,5 +96,7 @@ $(document).ready(function() {
         });
     }
   });
+
+  // Prints existing tweets from database upon page load
   printTweet();
 });

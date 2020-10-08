@@ -1,3 +1,4 @@
+// Function that listens for keyup and counts leftover character limit
 $(document).ready(function() {
   $("#tweet-text").on('keyup', function(evt) {
     let count = 140 - $(this).val().length;
