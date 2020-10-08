@@ -4,7 +4,7 @@ Tweeter is a simple, single-page Twitter clone, built to practice HTML, CSS, JS,
 
 ## Screenshots
 ![Screenshot of tweet compose box and error message](https://github.com/kevinyang-cyen/tweeter/blob/master/docs/Error-Screenshot.PNG?raw=true)
-![Screenshot of new tweet upon valid submission]
+![Screenshot of new tweet upon valid submission](https://github.com/kevinyang-cyen/tweeter/blob/master/docs/Successful-Tweet.PNG?raw=true)
 
 ## Download Instructions
 
